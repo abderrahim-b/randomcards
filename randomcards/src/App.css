@@ -82,3 +82,62 @@ html, body {
   width: 40%;
   border-radius: 10px;
 }
+
+
+.win-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+
+.win-message {
+  font-size: 5rem;                
+  font-weight: 800;
+  color: #ffffff;                 
+  margin-bottom: 40px;
+  animation: dropIn 1s ease-out;
+    
+}
+
+
+.play-again {
+  padding: 14px 30px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: #00ff88;
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.play-again:hover {
+  background: #00cc6a;
+  transform: scale(1.05);
+}
+
+
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(20px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+

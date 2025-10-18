@@ -9,6 +9,7 @@ import nymph from "./assets/nymph.png";
 import penguin from "./assets/penguin.png";
 import walrus from "./assets/walrus.png";
 import { useState } from 'react';
+import { useEffect } from 'react';
 function App() {
   
 
@@ -24,6 +25,15 @@ function App() {
   const [Fiestcard,setfirstcard]= useState(null);
   // const [Secondcard,setsecondcard]= useState (null);
   const [disabled,setdisabled]= useState (false);
+  const [count, setCount] = useState(0);
+   const [gameWon, setGameWon] = useState(false)
+
+      useEffect(() => {
+    if (count === cards.length / 2) {
+      setGameWon(true)
+    }
+  }, [count, cards.length])
+
 
   function handleCardClick(card) {
     if (card.isFlipped || card.matched || disabled) return;
@@ -46,6 +56,7 @@ function App() {
 
     setTimeout(() => {
         if (Fiestcard.img === card.img) {
+                    setCount(prev => prev + 1)
                     setcards(prevCards => prevCards.map(c => {
             if (c.img === card.img) return { ...c, matched: true };
             return c;
@@ -77,7 +88,32 @@ function App() {
 
   return (
 
-     <div className="container">
+    <div className="container">
+      {gameWon && (
+        <div className="win-section">
+          <h1 className="win-message"> You Win! </h1>
+          <button
+            className="play-again"
+            onClick={() => {
+              setcards(
+                shuffle([...animals, ...animals]).map((img, i) => ({
+                  index: i,
+                  img,
+                  isFlipped: false,
+                  matched: false
+                }))
+              )
+              setfirstcard(null)
+              setdisabled(false)
+              setCount(0)
+              setGameWon(false)
+            }}
+          >
+            Play Again
+          </button>
+        </div>
+      )}
+
       {cards.map(card => (
         <Card
           key={card.index}
