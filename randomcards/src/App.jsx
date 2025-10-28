@@ -11,24 +11,24 @@ import walrus from "./assets/walrus.png";
 import { useState } from 'react';
 import { useEffect } from 'react';
 function App() {
-  
+
 
 
   const animals = [bear, dog, cat, chameleon, gorilla, nymph, penguin, walrus];
-  const [cards,setcards] = useState(shuffle([...animals, ...animals]).map((img, i) => ({
+  const [cards, setcards] = useState(shuffle([...animals, ...animals]).map((img, i) => ({
     index: i,
     img,
     isFlipped: false,
     matched: false
 
   })));
-  const [Fiestcard,setfirstcard]= useState(null);
+  const [Fiestcard, setfirstcard] = useState(null);
   // const [Secondcard,setsecondcard]= useState (null);
-  const [disabled,setdisabled]= useState (false);
+  const [disabled, setdisabled] = useState(false);
   const [count, setCount] = useState(0);
-   const [gameWon, setGameWon] = useState(false)
+  const [gameWon, setGameWon] = useState(false)
 
-      useEffect(() => {
+  useEffect(() => {
     if (count === cards.length / 2) {
       setGameWon(true)
     }
@@ -50,36 +50,36 @@ function App() {
     if (Fiestcard === null) {
       setfirstcard(card);
       return;
-    } else  {
+    } else {
       setdisabled(true);
     }
 
     setTimeout(() => {
-        if (Fiestcard.img === card.img) {
-                    setCount(prev => prev + 1)
-                    setcards(prevCards => prevCards.map(c => {
-            if (c.img === card.img) return { ...c, matched: true };
-            return c;
-}));
-        } else {
+      if (Fiestcard.img === card.img) {
+        setCount(prev => prev + 1)
+        setcards(prevCards => prevCards.map(c => {
+          if (c.img === card.img) return { ...c, matched: true };
+          return c;
+        }));
+      } else {
 
-                const updatedCards2 = cards.map(c => {
-               if (c.index === card.index || c.index === Fiestcard.index) {
-                   return { ...c, isFlipped: false };
-            }
-            return c;
-          });
-          setcards(updatedCards2);  
-        }
-            setfirstcard(null);
-        setdisabled(false);
+        const updatedCards2 = cards.map(c => {
+          if (c.index === card.index || c.index === Fiestcard.index) {
+            return { ...c, isFlipped: false };
+          }
+          return c;
+        });
+        setcards(updatedCards2);
+      }
+      setfirstcard(null);
+      setdisabled(false);
 
 
 
     }, 500);
 
   }
- 
+
 
 
 
@@ -126,15 +126,15 @@ function App() {
   );
 
 
-   function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1)); 
-          let temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      let temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
   }
-  return array;
-}
 }
 
 export default App
